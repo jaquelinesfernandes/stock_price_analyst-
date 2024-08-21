@@ -3,12 +3,12 @@
 import json
 import os
 from datetime import datetime
-import yfinance as yf
-from crewai import Agent, Task, Crew, Process
+import yfinance as yf # type: ignore
+from crewai import Agent, Task, Crew, Process # type: ignore
 from langchain.tools import Tool
-from langchain_openai import ChatOpenAI
+from langchain_openai import ChatOpenAI # type: ignore
 from langchain_community.tools import DuckDuckGoSearchResults
-import streamlit as st
+import streamlit as st # type: ignore
 
 
 # In[66]:
@@ -164,13 +164,15 @@ writeAnalyses = Task(
 crew = Crew(
     agents = [stockPriceAnalyst, newsAnalyst, stockAnalystWrite],
     tasks = [getStockPrice, get_news, writeAnalyses],
-    verbose = True,
+    verbose = 2,
     process= Process.hierarchical,
     full_output=True,
     share_crew=False,
     manager_llm=llm,
     max_iter=15
 )
+
+# results= crew.kickoff(inputs={'ticket': 'AAPL})
 
 
 
